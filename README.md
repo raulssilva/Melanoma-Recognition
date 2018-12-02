@@ -1,1 +1,1 @@
-# Melanoma-Recognition
+# Melanoma Recognition
