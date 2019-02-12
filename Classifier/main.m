@@ -112,89 +112,93 @@ for i = 0:9
 end
 
 for i = 10:99
-    fileName = ['characteristics/ISIC_00000' int2str(i) '.txt'];
-    
-    if exist(fileName, 'file') == 2
-        fileID = fopen(fileName);
-        values = textscan(fileID,'%10.2f %10.2f %10.2f');
-        fclose(fileID);
+    if (ismember(['00000' int2str(i)], benign) == 0) && (ismember(['00000' int2str(i)], malign) == 0)
+        fileName = ['characteristics/ISIC_00000' int2str(i) '.txt'];
 
-        border = values{1};
-        diameter = values{2};
-        asymmetry = values{3};
+        if exist(fileName, 'file') == 2
+            fileID = fopen(fileName);
+            values = textscan(fileID,'%10.2f %10.2f %10.2f');
+            fclose(fileID);
 
-        regularBorder = uint8(abs(border - (diameter * pi)));
+            border = values{1};
+            diameter = values{2};
+            asymmetry = values{3};
 
-        nonMelanomaDistance = sqrt(double((nonMelanomaCentroidAsymmetry - asymmetry).^2 + ...
-            (nonMelanomaCentroidBorder - regularBorder).^2 + ...
-            (nonMelanomaCentroidDiameter - diameter).^2));
+            regularBorder = uint8(abs(border - (diameter * pi)));
 
-        melanomaDistance = sqrt(double((melanomaCentroidAsymmetry - asymmetry).^2 + ...
-            (melanomaCentroidBorder - regularBorder).^2 + ...
-            (melanomaCentroidDiameter - diameter).^2));
+            nonMelanomaDistance = sqrt(double((nonMelanomaCentroidAsymmetry - asymmetry).^2 + ...
+                (nonMelanomaCentroidBorder - regularBorder).^2 + ...
+                (nonMelanomaCentroidDiameter - diameter).^2));
 
-        if (nonMelanomaDistance > melanomaDistance)
-            newDataName = [folder 'ISIC_00000' int2str(i) '.txt'];
-            resultFile = fopen(newDataName, 'w');
-            fprintf(resultFile, 'Malígno\n');
-            fclose(resultFile);
+            melanomaDistance = sqrt(double((melanomaCentroidAsymmetry - asymmetry).^2 + ...
+                (melanomaCentroidBorder - regularBorder).^2 + ...
+                (melanomaCentroidDiameter - diameter).^2));
 
-            melanomaCentroidAsymmetry = (melanomaCentroidAsymmetry + asymmetry)/2;
-            melanomaCentroidBorder = (melanomaCentroidBorder + regularBorder)/2;
-            melanomaCentroidDiameter = (melanomaCentroidDiameter + diameter)/2;
-        else
-            newDataName = [folder 'ISIC_00000' int2str(i) '.txt'];
-            resultFile = fopen(newDataName, 'w');
-            fprintf(resultFile, 'Benígno\n');
-            fclose(resultFile);
+            if (nonMelanomaDistance > melanomaDistance)
+                newDataName = [folder 'ISIC_00000' int2str(i) '.txt'];
+                resultFile = fopen(newDataName, 'w');
+                fprintf(resultFile, 'Malígno\n');
+                fclose(resultFile);
 
-            nonMelanomaCentroidAsymmetry = (nonMelanomaCentroidAsymmetry + asymmetry)/2;
-            nonMelanomaCentroidBorder = (nonMelanomaCentroidBorder + regularBorder)/2;
-            nonMelanomaCentroidDiameter = (nonMelanomaCentroidDiameter + diameter)/2;
+                melanomaCentroidAsymmetry = (melanomaCentroidAsymmetry + asymmetry)/2;
+                melanomaCentroidBorder = (melanomaCentroidBorder + regularBorder)/2;
+                melanomaCentroidDiameter = (melanomaCentroidDiameter + diameter)/2;
+            else
+                newDataName = [folder 'ISIC_00000' int2str(i) '.txt'];
+                resultFile = fopen(newDataName, 'w');
+                fprintf(resultFile, 'Benígno\n');
+                fclose(resultFile);
+
+                nonMelanomaCentroidAsymmetry = (nonMelanomaCentroidAsymmetry + asymmetry)/2;
+                nonMelanomaCentroidBorder = (nonMelanomaCentroidBorder + regularBorder)/2;
+                nonMelanomaCentroidDiameter = (nonMelanomaCentroidDiameter + diameter)/2;
+            end
         end
     end
 end
 
 for i = 100:175
-    fileName = ['characteristics/ISIC_0000' int2str(i) '.txt'];
-    
-    if exist(fileName, 'file') == 2
-        fileID = fopen(fileName);
-        values = textscan(fileID,'%10.2f %10.2f %10.2f');
-        fclose(fileID);
+    if (ismember(['0000' int2str(i)], benign) == 0) && (ismember(['0000' int2str(i)], malign) == 0)
+        fileName = ['characteristics/ISIC_0000' int2str(i) '.txt'];
 
-        border = values{1};
-        diameter = values{2};
-        asymmetry = values{3};
+        if exist(fileName, 'file') == 2
+            fileID = fopen(fileName);
+            values = textscan(fileID,'%10.2f %10.2f %10.2f');
+            fclose(fileID);
 
-        regularBorder = uint8(abs(border - (diameter * pi)));
+            border = values{1};
+            diameter = values{2};
+            asymmetry = values{3};
 
-        nonMelanomaDistance = sqrt(double((nonMelanomaCentroidAsymmetry - asymmetry).^2 + ...
-            (nonMelanomaCentroidBorder - regularBorder).^2 + ...
-            (nonMelanomaCentroidDiameter - diameter).^2));
+            regularBorder = uint8(abs(border - (diameter * pi)));
 
-        melanomaDistance = sqrt(double((melanomaCentroidAsymmetry - asymmetry).^2 + ...
-            (melanomaCentroidBorder - regularBorder).^2 + ...
-            (melanomaCentroidDiameter - diameter).^2));
+            nonMelanomaDistance = sqrt(double((nonMelanomaCentroidAsymmetry - asymmetry).^2 + ...
+                (nonMelanomaCentroidBorder - regularBorder).^2 + ...
+                (nonMelanomaCentroidDiameter - diameter).^2));
 
-        if (nonMelanomaDistance >= melanomaDistance)
-            newDataName = [folder 'ISIC_0000' int2str(i) '.txt'];
-            resultFile = fopen(newDataName, 'w');
-            fprintf(resultFile, 'Malígno\n');
-            fclose(resultFile);
+            melanomaDistance = sqrt(double((melanomaCentroidAsymmetry - asymmetry).^2 + ...
+                (melanomaCentroidBorder - regularBorder).^2 + ...
+                (melanomaCentroidDiameter - diameter).^2));
 
-            melanomaCentroidAsymmetry = (melanomaCentroidAsymmetry + asymmetry)/2;
-            melanomaCentroidBorder = (melanomaCentroidBorder + regularBorder)/2;
-            melanomaCentroidDiameter = (melanomaCentroidDiameter + diameter)/2;
-        else
-            newDataName = [folder 'ISIC_0000' int2str(i) '.txt'];
-            resultFile = fopen(newDataName, 'w');
-            fprintf(resultFile, 'Benígno\n');
-            fclose(resultFile);
+            if (nonMelanomaDistance >= melanomaDistance)
+                newDataName = [folder 'ISIC_0000' int2str(i) '.txt'];
+                resultFile = fopen(newDataName, 'w');
+                fprintf(resultFile, 'Malígno\n');
+                fclose(resultFile);
 
-            nonMelanomaCentroidAsymmetry = (nonMelanomaCentroidAsymmetry + asymmetry)/2;
-            nonMelanomaCentroidBorder = (nonMelanomaCentroidBorder + regularBorder)/2;
-            nonMelanomaCentroidDiameter = (nonMelanomaCentroidDiameter + diameter)/2;
+                melanomaCentroidAsymmetry = (melanomaCentroidAsymmetry + asymmetry)/2;
+                melanomaCentroidBorder = (melanomaCentroidBorder + regularBorder)/2;
+                melanomaCentroidDiameter = (melanomaCentroidDiameter + diameter)/2;
+            else
+                newDataName = [folder 'ISIC_0000' int2str(i) '.txt'];
+                resultFile = fopen(newDataName, 'w');
+                fprintf(resultFile, 'Benígno\n');
+                fclose(resultFile);
+
+                nonMelanomaCentroidAsymmetry = (nonMelanomaCentroidAsymmetry + asymmetry)/2;
+                nonMelanomaCentroidBorder = (nonMelanomaCentroidBorder + regularBorder)/2;
+                nonMelanomaCentroidDiameter = (nonMelanomaCentroidDiameter + diameter)/2;
+            end
         end
     end
 end
