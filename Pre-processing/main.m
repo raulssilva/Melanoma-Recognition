@@ -1,5 +1,5 @@
-for i = 2:9
-    fileName = ['../Dataset/IMD00' int2str(i) '.bmp'];
+for i = 0:9
+    fileName = ['../ISIC-images/UDA-1/ISIC_000000' int2str(i) '.jpg'];
     
     if exist(fileName, 'file') == 2
         img = imread(fileName);
@@ -7,13 +7,13 @@ for i = 2:9
         tumor = preProcessing(img);
 
         folder = 'C:\Users\raulmacintosh\Documents\Projeto\Data extraction\images\';
-        newimagename = [folder 'IMD00' int2str(i) '.bmp'];
+        newimagename = [folder 'ISIC_000000' int2str(i) '.jpg'];
         imwrite(tumor, newimagename);
     end
 end
 
 for i = 10:99
-    fileName = ['../Dataset/IMD0' int2str(i) '.bmp'];
+    fileName = ['../ISIC-images/UDA-1/ISIC_00000' int2str(i) '.jpg'];
     
     if exist(fileName, 'file') == 2
         img = imread(fileName);
@@ -21,13 +21,13 @@ for i = 10:99
         tumor = preProcessing(img);
 
         folder = 'C:\Users\raulmacintosh\Documents\Projeto\Data extraction\images\';
-        newimagename = [folder 'IMD0' int2str(i) '.bmp'];
+        newimagename = [folder 'ISIC_00000' int2str(i) '.jpg'];
         imwrite(tumor, newimagename);
     end
 end
 
-for i = 100:437
-    fileName = ['../Dataset/IMD' int2str(i) '.bmp'];
+for i = 100:175
+    fileName = ['../ISIC-images/UDA-1/ISIC_0000' int2str(i) '.jpg'];
     
     if exist(fileName, 'file') == 2
         img = imread(fileName);
@@ -35,7 +35,7 @@ for i = 100:437
         tumor = preProcessing(img);
 
         folder = 'C:\Users\raulmacintosh\Documents\Projeto\Data extraction\images\';
-        newimagename = [folder 'IMD' int2str(i) '.bmp'];
+        newimagename = [folder 'ISIC_0000' int2str(i) '.jpg'];
         imwrite(tumor, newimagename);
     end
 end
